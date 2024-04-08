@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import net.java.EMSbackend.model.Employee;
 import net.java.EMSbackend.service.EmployeeService;
-import com.fasterxml.jackson.annotation.JsonInclude;
+// import com.fasterxml.jackson.annotation.JsonInclude;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+// @JsonInclude(JsonInclude.Include.NON_NULL)
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
