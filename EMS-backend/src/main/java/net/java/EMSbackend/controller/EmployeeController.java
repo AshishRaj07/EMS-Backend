@@ -76,39 +76,29 @@ public class EmployeeController {
         boolean b = employeeService.deleteEmployee(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-    // @GetMapping("/{id}")
-    // public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
-    // Employee employee = employeeService.getEmployeeById(id);
-    // if (employee != null) {
-    // return ResponseEntity.ok(employee);
-    // } else {
-    // return ResponseEntity.notFound().build();
-    // }
-    // }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Employee> updateEmployee(@PathVariable Long id,
-    // @RequestBody Employee employeeDetails) {
-    // Employee existingEmployee = employeeService.getEmployeeById(id);
+    @PatchMapping("/updateEmployee/{id}")
+    public ResponseEntity<?> updateEmployee(@PathVariable Long id,
+            @RequestParam("fname") String fname,
+            @RequestParam("lname") String lname,
+            @RequestParam("email") String email,
+            @RequestParam("phone") String phone,
+            @RequestParam("department") String department,
+            @RequestParam("dateOfBirth") LocalDate dateOfBirth, @RequestParam("salary") String salary) {
+        Employee emp = employeeService.getEmployeeById(id);
+        emp.setFirstName(fname);
+        emp.setLastName(lname);
+        emp.setDepartment(department);
+        emp.setEmail(email);
+        emp.setBirthdate(dateOfBirth);
+        emp.setSalary(Double.parseDouble(salary));
+        emp.setContact(phone);
+        return ResponseEntity.ok(employeeService.saveEmployee(emp));
 
-    // if (existingEmployee == null) {
-    // return ResponseEntity.notFound().build();
-    // }
-    // BeanUtils.copyProperties(employeeDetails, existingEmployee, "id");
+    }
 
-    // Employee updatedEmployee = employeeService.saveEmployee(existingEmployee);
-    // return ResponseEntity.ok(updatedEmployee);
-    // }
-
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
-    // boolean isDeleted = employeeService.deleteEmployee(id);
-    // if (isDeleted) {
-    // return ResponseEntity.ok("Employee with id " + id + " deleted successfully");
-    // } else {
-    // return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee with id " +
-    // id + " not found");
-    // }
-    // }
-
+    @PatchMapping("/addSalary/{email}")
+    public void addSalary(@PathVariable String email, @RequestParam("salary") String salary) {
+        employeeService.addSalary(email, Float.parseFloat(salary));
+    }
 }

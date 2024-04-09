@@ -2,16 +2,21 @@ package net.java.EMSbackend.model;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.cglib.core.Local;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -57,6 +62,14 @@ public class Employee {
 
     @Column(name = "salary")
     private double salary;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<LeaveRequest> leaveRequests;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Attendance> attendance;
 
     public Employee() {
     }
