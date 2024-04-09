@@ -73,6 +73,16 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
+    @GetMapping("/employee/{email}")
+    public ResponseEntity<Employee> getEmployeeByEmail(@PathVariable String email) {
+        Employee employee = employeeService.getEmpByEmail(email);
+        if (employee != null) {
+            return ResponseEntity.ok(employee);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
     @DeleteMapping("/deleteEmployee/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
         boolean b = employeeService.deleteEmployee(id);
