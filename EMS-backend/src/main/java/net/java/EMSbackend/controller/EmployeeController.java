@@ -14,7 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import net.java.EMSbackend.model.Employee;
 import net.java.EMSbackend.service.EmployeeService;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @RestController
 @RequestMapping("/api")
 public class EmployeeController {
