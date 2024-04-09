@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -44,9 +45,8 @@ public class EmployeeService {
         Employee existingEmployee = getEmployeeById(id);
 
         if (existingEmployee != null) {
-            // Copy non-null properties from employeeDetails to existingEmployee
-            BeanUtils.copyProperties(employeeDetails, existingEmployee, "id");
-            return employeeRepository.save(existingEmployee);
+
+            return employeeRepository.save(employeeDetails);
         }
 
         return null;
@@ -62,4 +62,14 @@ public class EmployeeService {
         }
     }
 
+    @Transactional
+    @Modifying
+    public Employee addSalary(String email, Float salary) {
+        Employee reg = employeeRepository.findByEmail(email);
+        if (reg == null) {
+            throw new RuntimeException("Error");
+        }
+        reg.setSalary(salary);
+        return employeeRepository.save(reg);
+    }
 }
