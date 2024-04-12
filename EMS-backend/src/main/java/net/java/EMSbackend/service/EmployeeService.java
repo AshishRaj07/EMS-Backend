@@ -32,6 +32,7 @@ public class EmployeeService {
 
     }
 
+    @Transactional
     public Employee getEmpByEmail(String email) {
         return employeeRepository.findByEmail(email);
     }
