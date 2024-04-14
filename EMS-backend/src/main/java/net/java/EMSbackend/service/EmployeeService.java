@@ -2,8 +2,6 @@ package net.java.EMSbackend.service;
 
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +15,6 @@ import net.java.EMSbackend.repository.EmployeeRepository;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
-    @Autowired
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
@@ -26,7 +23,6 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    @Transactional
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
 

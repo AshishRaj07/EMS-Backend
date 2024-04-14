@@ -1,76 +1,40 @@
-package net.java.EMSbackend.model;
+package net.java.EMSbackend.DTO;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+public class EmployeeDTO {
 
-@Entity
-@Table(name = "employees")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "birthdate")
     private LocalDate birthdate;
 
-    @Column(name = "gender")
     private String gender;
 
-    @Column(name = "department")
     private String department;
 
-    @Column(name = "contact")
     private String contact;
 
-    @Column(name = "image")
-    @Lob
-    private String image;
+    private MultipartFile image;
 
-    @Column(name = "company")
     private String company;
 
     private String password;
 
-    @Column(name = "experience")
     private Integer experience;
 
-    @Column(name = "salary")
     private double salary;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<LeaveRequest> leaveRequests;
-
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Attendance> attendance;
-
-    public Employee() {
-    }
-
-    public Employee(Long id, String firstName, String lastName, String email, LocalDate birthdate, String gender,
-            String department, String contact, String image, String company, Integer experience, double salary) {
+    public EmployeeDTO(Long id, String firstName, String lastName, String email, LocalDate birthdate, String gender,
+            String department, String contact, MultipartFile image, String company, String password, Integer experience,
+            double salary) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -81,11 +45,11 @@ public class Employee {
         this.contact = contact;
         this.image = image;
         this.company = company;
+        this.password = password;
         this.experience = experience;
         this.salary = salary;
     }
 
-    // Getters and Setters for all fields
     public Long getId() {
         return id;
     }
@@ -118,6 +82,14 @@ public class Employee {
         this.email = email;
     }
 
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
     public String getGender() {
         return gender;
     }
@@ -142,11 +114,11 @@ public class Employee {
         this.contact = contact;
     }
 
-    public String getImage() {
+    public MultipartFile getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(MultipartFile image) {
         this.image = image;
     }
 
@@ -158,8 +130,16 @@ public class Employee {
         this.company = company;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Integer getExperience() {
-        return experience != null ? experience : 0;
+        return experience;
     }
 
     public void setExperience(Integer experience) {
@@ -172,22 +152,6 @@ public class Employee {
 
     public void setSalary(double salary) {
         this.salary = salary;
-    }
-
-    public LocalDate getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(LocalDate birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
 }

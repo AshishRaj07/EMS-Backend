@@ -1,4 +1,4 @@
-package net.java.EMSbackend.model;
+package net.java.EMSbackend.DTO;
 
 public class AttendanceCountDTO {
     private Long presentCount;

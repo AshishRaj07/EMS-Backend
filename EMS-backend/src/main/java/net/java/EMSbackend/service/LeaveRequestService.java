@@ -67,7 +67,6 @@ public class LeaveRequestService {
         return leaveRequestRepository.save(lr);
     }
 
-    @Transactional
     public Iterable<LeaveRequest> getAllLeaveDetails() {
         Iterable<LeaveRequest> lr = leaveRequestRepository.findAll();
         return lr;

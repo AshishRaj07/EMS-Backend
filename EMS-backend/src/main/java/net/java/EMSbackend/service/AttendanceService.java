@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import net.java.EMSbackend.model.Attendance;
-import net.java.EMSbackend.model.AttendanceCountDTO;
 import net.java.EMSbackend.model.Employee;
 import net.java.EMSbackend.repository.AttendanceRepository;
 import net.java.EMSbackend.repository.EmployeeRepository;

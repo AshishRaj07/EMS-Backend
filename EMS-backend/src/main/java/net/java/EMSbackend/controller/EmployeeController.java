@@ -4,14 +4,12 @@ import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
+import net.java.EMSbackend.DTO.EmployeeDTO;
 import net.java.EMSbackend.model.Employee;
 import net.java.EMSbackend.service.EmployeeService;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,44 +20,35 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    @Autowired
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
     @PostMapping("/addEmployee")
-    public ResponseEntity<?> addEmployee(@RequestParam("fname") String fname,
-            @RequestParam("lname") String lname,
-            @RequestParam("email") String email,
-            @RequestParam("phone") String phone,
-            @RequestParam("gender") String gender,
-            @RequestParam("department") String department,
-            @RequestParam("dateOfBirth") LocalDate dateOfBirth, @RequestParam("file") MultipartFile file,
-            @RequestParam("company") String company, @RequestParam("password") String password,
-            @RequestParam("experience") String experience, @RequestParam("salary") String salary) {
-        Employee emp = employeeService.getEmpByEmail(email);
+    public ResponseEntity<?> addEmployee(EmployeeDTO employeeDTO) {
+        Employee emp = employeeService.getEmpByEmail(employeeDTO.getEmail());
         if (emp == null) {
             Employee emply = new Employee();
-            emply.setFirstName(fname);
-            emply.setLastName(lname);
-            emply.setEmail(email);
-            emply.setContact(phone);
-            emply.setGender(gender);
-            emply.setDepartment(department);
-            emply.setBirthdate(dateOfBirth);
-            String filename = StringUtils.cleanPath(file.getOriginalFilename());
+            emply.setFirstName(employeeDTO.getFirstName());
+            emply.setLastName(employeeDTO.getLastName());
+            emply.setEmail(employeeDTO.getEmail());
+            emply.setContact(employeeDTO.getContact());
+            emply.setGender(employeeDTO.getGender());
+            emply.setDepartment(employeeDTO.getDepartment());
+            emply.setBirthdate(employeeDTO.getBirthdate());
+            String filename = StringUtils.cleanPath(employeeDTO.getImage().getOriginalFilename());
             if (filename.contains("..")) {
                 System.out.println("Invalid file");
             }
             try {
-                emply.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+                emply.setImage(Base64.getEncoder().encodeToString(employeeDTO.getImage().getBytes()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            emply.setCompany(company);
-            emply.setPassword(password);
-            emply.setExperience(Integer.parseInt(experience));
-            emply.setSalary(Double.parseDouble(salary));
+            emply.setCompany(employeeDTO.getCompany());
+            emply.setPassword(employeeDTO.getPassword());
+            emply.setExperience(employeeDTO.getExperience());
+            emply.setSalary(employeeDTO.getSalary());
             employeeService.saveEmployee(emply);
             return ResponseEntity.ok(emply);
         } else {
@@ -82,10 +71,10 @@ public class EmployeeController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     @DeleteMapping("/deleteEmployee/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
-        boolean b = employeeService.deleteEmployee(id);
+        employeeService.deleteEmployee(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

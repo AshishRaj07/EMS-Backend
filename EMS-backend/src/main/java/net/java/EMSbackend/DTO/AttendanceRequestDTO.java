@@ -1,4 +1,4 @@
-package net.java.EMSbackend.model;
+package net.java.EMSbackend.DTO;
 
 import java.time.LocalDate;
 import java.util.List;

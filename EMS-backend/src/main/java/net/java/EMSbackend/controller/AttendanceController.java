@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.java.EMSbackend.DTO.AttendanceRequestDTO;
 import net.java.EMSbackend.model.Attendance;
-import net.java.EMSbackend.model.AttendanceCountDTO;
-import net.java.EMSbackend.model.AttendanceRequestDTO;
 import net.java.EMSbackend.service.AttendanceService;
 
 @RestController
