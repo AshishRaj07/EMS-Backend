@@ -33,10 +33,10 @@ public class EmployeeService {
         return employeeRepository.findByEmail(email);
     }
 
-    @Transactional
-    public Employee getEmpById(int id) {
-        return employeeRepository.findById(id);
-    }
+    // @Transactional
+    // public Employee getEmpById(int id) {
+    // return employeeRepository.findById(id);
+    // }
 
     public Employee getEmployeeById(Long id) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(id);

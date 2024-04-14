@@ -62,10 +62,10 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
-    @GetMapping("/search{id}")
-    public Employee getEmployeeById(@RequestParam Long id){
-        return employeeService.findEmployeeById(id);
-    }
+    // @GetMapping("/search{id}")
+    // public Employee getEmployeeById(@RequestParam Long id){
+    // return employeeService.findEmployeeById(id);
+    // }
 
     @GetMapping("/employee/{email}")
     public ResponseEntity<Employee> getEmployeeByEmail(@PathVariable String email) {
