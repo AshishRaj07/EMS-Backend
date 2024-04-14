@@ -74,7 +74,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/search{id}")
-    public Employee getEmployeeById(@RequestParam int id){
+    public Employee getEmployeeById(@RequestParam Long id){
         return employeeService.findEmployeeById(id);
     }
 
