@@ -58,11 +58,11 @@ public class Employee {
     @Column(name = "salary")
     private double salary;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<LeaveRequest> leaveRequests;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Attendance> attendance;
 
