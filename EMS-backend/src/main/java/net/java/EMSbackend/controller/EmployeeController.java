@@ -52,7 +52,7 @@ public class EmployeeController {
             employeeService.saveEmployee(emply);
             return ResponseEntity.ok(emply);
         } else {
-            return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body("User With This Email Already Exist");
+            return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(null);
         }
 
     }
