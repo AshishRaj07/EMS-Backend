@@ -2,6 +2,9 @@ package net.java.EMSbackend.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +28,13 @@ public class EmployeeService {
 
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
-
     }
+
+    public Page<Employee> getAllEmployeesPage(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return employeeRepository.findAll(pageRequest);
+    }
+    
 
     @Transactional
     public Employee getEmpByEmail(String email) {

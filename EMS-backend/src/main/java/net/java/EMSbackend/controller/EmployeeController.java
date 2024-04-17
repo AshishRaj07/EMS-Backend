@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -13,6 +14,9 @@ import net.java.EMSbackend.DTO.EmployeeDTO;
 import net.java.EMSbackend.model.Employee;
 import net.java.EMSbackend.service.EmployeeService;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @RestController
@@ -57,10 +61,18 @@ public class EmployeeController {
 
     }
 
-    @GetMapping("/getAllEmployee")
-    public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    @GetMapping("/getAllEmployeePage/{pageNumber}")
+    public Page<Employee> getAllEmployees(@PathVariable int pageNumber) {
+        return employeeService.getAllEmployeesPage(pageNumber,5);
     }
+
+    @GetMapping("/getAllEmployee")
+    public ResponseEntity<List<Employee>> getAllEmployees(){
+        List<Employee> employees = employeeService.getAllEmployees();
+        return ResponseEntity.ok(employees);
+    }
+    
+
 
     // @GetMapping("/search{id}")
     // public Employee getEmployeeById(@RequestParam Long id){
