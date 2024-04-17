@@ -1,6 +1,8 @@
 package net.java.EMSbackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import net.java.EMSbackend.model.Department;
@@ -27,6 +29,11 @@ public class DepartmentService {
     public Iterable<Department> getAllDepartment() {
         Iterable<Department> dept = departmentRepository.findAll();
         return dept;
+    }
+
+    public Page<Department> getAllDepartmentPage(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return departmentRepository.findAll(pageRequest);
     }
 
     public void deleteDepartment(Long id) {

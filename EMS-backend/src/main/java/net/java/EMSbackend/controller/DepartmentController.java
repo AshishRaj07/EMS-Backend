@@ -1,6 +1,7 @@
 package net.java.EMSbackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -41,7 +42,10 @@ public class DepartmentController {
         Iterable<Department> dept = departmentService.getAllDepartment();
         return dept;
     }
-
+    @GetMapping("/getAllDepartmentPage/{pageNumber}")
+    public Page<Department> getAllDepartment(@PathVariable int pageNumber) {
+        return departmentService.getAllDepartmentPage(pageNumber,5);
+    }
     @DeleteMapping("/deleteDepartment/{id}")
     public void deleteDepartment(@PathVariable String id) {
         // System.out.println(id);
