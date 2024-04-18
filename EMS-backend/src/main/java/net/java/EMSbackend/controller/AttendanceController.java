@@ -3,6 +3,7 @@ package net.java.EMSbackend.controller;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,4 +49,8 @@ public class AttendanceController {
         return attendanceService.getAttendancesByDate(Date);
     }
 
+    @GetMapping("/getAttendanceByDatePage/{pageNumber}/{Date}")
+    public Page<Attendance> getAttendancesByDate(@PathVariable int pageNumber,@PathVariable LocalDate Date) {
+        return attendanceService.getAttendancesByDatePage(Date,pageNumber,5);
+    }
 }
