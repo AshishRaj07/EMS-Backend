@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -70,5 +72,10 @@ public class LeaveRequestService {
     public Iterable<LeaveRequest> getAllLeaveDetails() {
         Iterable<LeaveRequest> lr = leaveRequestRepository.findAll();
         return lr;
+    }
+
+    public Page<LeaveRequest> getAllPendingLeavesRequestsPage(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return leaveRequestRepository.findAll(pageRequest);
     }
 }
