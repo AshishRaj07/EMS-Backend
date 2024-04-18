@@ -49,6 +49,11 @@ public class leaveRequestController {
         return leaveRequestService.getAllLeaveDetails();
     }
 
+    @GetMapping("/getAllLeavePage/{pageNumber}")
+    public Page<LeaveRequest> getAllLeaveDetails(@PathVariable int pageNumber) {
+        return leaveRequestService.getAllLeaveDetailsPage(pageNumber,5);
+    }
+
     @GetMapping("/pendingLeavesPage/{pageNumber}")
     public Page<LeaveRequest> getPendingLeaveRequests(@PathVariable int pageNumber) {
         return leaveRequestService.getAllPendingLeavesRequestsPage(pageNumber,5);

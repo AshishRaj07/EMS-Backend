@@ -74,6 +74,11 @@ public class LeaveRequestService {
         return lr;
     }
 
+    public Page<LeaveRequest> getAllLeaveDetailsPage(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return leaveRequestRepository.findAll(pageRequest);
+    }
+
     public Page<LeaveRequest> getAllPendingLeavesRequestsPage(int pageNumber, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return leaveRequestRepository.findAll(pageRequest);
