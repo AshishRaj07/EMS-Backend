@@ -104,8 +104,14 @@ public class AttendanceService {
     }
 
     @Transactional
-    public Page<Attendance> getAttendancesByDatePage(LocalDate Date,int pageNumber, int pageSize) {
+    public Page<Attendance> getAttendancesByDatePage(LocalDate Date, int pageNumber, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        return attendanceRepository.findByDate(Date,pageRequest);
+        return attendanceRepository.findByDate(Date, pageRequest);
+    }
+
+    @Transactional
+    public Page<Attendance> getSearchedAttendance(String keyword, int pageNumber, int pageSize, LocalDate date) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return attendanceRepository.getSearchedAttendance(keyword, date, pageRequest);
     }
 }

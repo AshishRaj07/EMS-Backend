@@ -36,6 +36,11 @@ public class DepartmentService {
         return departmentRepository.findAll(pageRequest);
     }
 
+    public Page<Department> getSearchedDepartment(String keyword, int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return departmentRepository.getSearchedDepartment(keyword.toLowerCase(), pageRequest);
+    }
+
     public void deleteDepartment(Long id) {
         departmentRepository.deleteById(id);
     }

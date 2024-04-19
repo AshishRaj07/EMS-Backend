@@ -51,12 +51,21 @@ public class leaveRequestController {
 
     @GetMapping("/getAllLeavePage/{pageNumber}")
     public Page<LeaveRequest> getAllLeaveDetails(@PathVariable int pageNumber) {
-        return leaveRequestService.getAllLeaveDetailsPage(pageNumber,5);
+        return leaveRequestService.getAllLeaveDetailsPage(pageNumber, 5);
+    }
+
+    @GetMapping("/getSearchedLeave/{keyword}/{pageNumber}")
+    public Page<LeaveRequest> getSearchedLeave(@PathVariable String keyword, @PathVariable int pageNumber) {
+        return leaveRequestService.getSearchedLeave(keyword, pageNumber, 5);
+    }
+
+    @GetMapping("/getAllSearchedLeave/{keyword}/{pageNumber}")
+    public Page<LeaveRequest> getAllSearchedLeave(@PathVariable String keyword, @PathVariable int pageNumber) {
+        return leaveRequestService.getAllSearchedLeave(keyword, pageNumber, 5);
     }
 
     @GetMapping("/pendingLeavesPage/{pageNumber}")
     public Page<LeaveRequest> getPendingLeaveRequests(@PathVariable int pageNumber) {
-        return leaveRequestService.getAllPendingLeavesRequestsPage(pageNumber,5);
+        return leaveRequestService.getAllPendingLeavesRequestsPage(pageNumber, 5);
     }
 }
-

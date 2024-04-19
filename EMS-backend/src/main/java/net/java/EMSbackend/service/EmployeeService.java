@@ -34,7 +34,12 @@ public class EmployeeService {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return employeeRepository.findAll(pageRequest);
     }
-    
+
+    @Transactional
+    public Page<Employee> getSearchedEmployee(String keyword, int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return employeeRepository.getSearchedEmployee(keyword.toLowerCase(), pageRequest);
+    }
 
     @Transactional
     public Employee getEmpByEmail(String email) {

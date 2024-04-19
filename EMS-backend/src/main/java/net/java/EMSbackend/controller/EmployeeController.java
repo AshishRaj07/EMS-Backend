@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @RestController
 @RequestMapping("/api")
@@ -63,16 +62,19 @@ public class EmployeeController {
 
     @GetMapping("/getAllEmployeePage/{pageNumber}")
     public Page<Employee> getAllEmployees(@PathVariable int pageNumber) {
-        return employeeService.getAllEmployeesPage(pageNumber,5);
+        return employeeService.getAllEmployeesPage(pageNumber, 5);
+    }
+
+    @GetMapping("/getSearchedEmployee/{keyword}/{pageNumber}")
+    public Page<Employee> getSearchedEmployee(@PathVariable String keyword, @PathVariable int pageNumber) {
+        return employeeService.getSearchedEmployee(keyword, pageNumber, 5);
     }
 
     @GetMapping("/getAllEmployee")
-    public ResponseEntity<List<Employee>> getAllEmployees(){
+    public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
         return ResponseEntity.ok(employees);
     }
-    
-
 
     // @GetMapping("/search{id}")
     // public Employee getEmployeeById(@RequestParam Long id){

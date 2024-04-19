@@ -42,10 +42,15 @@ public class DepartmentController {
         Iterable<Department> dept = departmentService.getAllDepartment();
         return dept;
     }
-    
+
     @GetMapping("/getAllDepartmentPage/{pageNumber}")
     public Page<Department> getAllDepartment(@PathVariable int pageNumber) {
-        return departmentService.getAllDepartmentPage(pageNumber,5);
+        return departmentService.getAllDepartmentPage(pageNumber, 5);
+    }
+
+    @GetMapping("/getSearchedDepartment/{keyword}/{pageNumber}")
+    public Page<Department> getSearchedDepartment(@PathVariable String keyword, @PathVariable int pageNumber) {
+        return departmentService.getSearchedDepartment(keyword, pageNumber, 5);
     }
 
     @DeleteMapping("/deleteDepartment/{id}")

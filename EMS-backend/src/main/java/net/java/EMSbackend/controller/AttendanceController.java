@@ -50,7 +50,14 @@ public class AttendanceController {
     }
 
     @GetMapping("/getAttendanceByDatePage/{pageNumber}/{Date}")
-    public Page<Attendance> getAttendancesByDate(@PathVariable int pageNumber,@PathVariable LocalDate Date) {
-        return attendanceService.getAttendancesByDatePage(Date,pageNumber,5);
+    public Page<Attendance> getAttendancesByDate(@PathVariable int pageNumber, @PathVariable LocalDate Date) {
+        return attendanceService.getAttendancesByDatePage(Date, pageNumber, 5);
     }
+
+    @GetMapping("/getSearchedAttendance/{keyword}/{pageNumber}/{Date}")
+    public Page<Attendance> getSearchedAttendances(@PathVariable String keyword, @PathVariable int pageNumber,
+            @PathVariable LocalDate Date) {
+        return attendanceService.getSearchedAttendance(keyword, pageNumber, 5, Date);
+    }
+
 }

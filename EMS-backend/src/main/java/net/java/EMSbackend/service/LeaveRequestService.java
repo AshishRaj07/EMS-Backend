@@ -79,8 +79,21 @@ public class LeaveRequestService {
         return leaveRequestRepository.findAll(pageRequest);
     }
 
+    @Transactional
+    public Page<LeaveRequest> getSearchedLeave(String keyword, int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return leaveRequestRepository.getSearchedLeaveDetails(keyword.toLowerCase(), pageRequest);
+    }
+
+    @Transactional
+    public Page<LeaveRequest> getAllSearchedLeave(String keyword, int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return leaveRequestRepository.getAllSearchedLeaveDetails(keyword.toLowerCase(), pageRequest);
+    }
+
+    @Transactional
     public Page<LeaveRequest> getAllPendingLeavesRequestsPage(int pageNumber, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        return leaveRequestRepository.findAll(pageRequest);
+        return leaveRequestRepository.getPendingLeaves(pageRequest);
     }
 }
