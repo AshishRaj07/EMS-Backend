@@ -2,6 +2,7 @@ package net.java.EMSbackend.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -13,10 +14,21 @@ import jakarta.transaction.Transactional;
 import java.util.Optional;
 import net.java.EMSbackend.model.Employee;
 import net.java.EMSbackend.repository.EmployeeRepository;
+import net.java.EMSbackend.repository.TodoRepository;
 
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    @Autowired
+    private TodoRepository todoRepository;
+
+    public TodoRepository getTodoRepository() {
+        return todoRepository;
+    }
+
+    public void setTodoRepository(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
 
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
@@ -61,6 +73,11 @@ public class EmployeeService {
 
         if (existingEmployee != null) {
 
+            if (existingEmployee.getEmail() != employeeDetails.getEmail()) {
+                if (todoRepository.findByEmail(existingEmployee.getEmail()) != null) {
+                    todoRepository.updateEmail(existingEmployee.getEmail(), employeeDetails.getEmail());
+                }
+            }
             return employeeRepository.save(employeeDetails);
         }
 
