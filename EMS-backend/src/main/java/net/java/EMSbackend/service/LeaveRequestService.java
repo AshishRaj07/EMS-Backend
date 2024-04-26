@@ -96,4 +96,8 @@ public class LeaveRequestService {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
         return leaveRequestRepository.getPendingLeaves(pageRequest);
     }
+
+    public int countLeaveRequestsOfEmployee(String email) {
+        return leaveRequestRepository.countByEmployeeEmail(email);
+    }
 }

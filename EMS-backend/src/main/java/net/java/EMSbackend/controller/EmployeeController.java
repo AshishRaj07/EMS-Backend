@@ -11,11 +11,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import net.java.EMSbackend.DTO.EmployeeDTO;
+import net.java.EMSbackend.DTO.LoginDTO;
 import net.java.EMSbackend.model.Employee;
+import net.java.EMSbackend.model.LoginMessage;
 import net.java.EMSbackend.service.EmployeeService;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @RestController
@@ -39,6 +39,7 @@ public class EmployeeController {
             emply.setGender(employeeDTO.getGender());
             emply.setDepartment(employeeDTO.getDepartment());
             emply.setBirthdate(employeeDTO.getBirthdate());
+            emply.setUserRole("employee");
             String filename = StringUtils.cleanPath(employeeDTO.getImage().getOriginalFilename());
             if (filename.contains("..")) {
                 System.out.println("Invalid file");
@@ -120,5 +121,11 @@ public class EmployeeController {
     @PatchMapping("/addSalary/{email}")
     public void addSalary(@PathVariable String email, @RequestParam("salary") String salary) {
         employeeService.addSalary(email, Float.parseFloat(salary));
+    }
+
+    @PostMapping("/loginEmployee")
+    public ResponseEntity<?> loginEmployee(@RequestBody LoginDTO loginDTO) {
+        LoginMessage lm = employeeService.loginEmployee(loginDTO);
+        return ResponseEntity.ok(lm);
     }
 }

@@ -52,6 +52,8 @@ public class Employee {
 
     private String password;
 
+    private String userRole;
+
     @Column(name = "experience")
     private Integer experience;
 
@@ -70,7 +72,8 @@ public class Employee {
     }
 
     public Employee(Long id, String firstName, String lastName, String email, LocalDate birthdate, String gender,
-            String department, String contact, String image, String company, Integer experience, double salary) {
+            String department, String contact, String image, String company, Integer experience, double salary,
+            String userRole) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -83,6 +86,7 @@ public class Employee {
         this.company = company;
         this.experience = experience;
         this.salary = salary;
+        this.userRole = userRole;
     }
 
     // Getters and Setters for all fields
@@ -92,6 +96,14 @@ public class Employee {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public String getFirstName() {

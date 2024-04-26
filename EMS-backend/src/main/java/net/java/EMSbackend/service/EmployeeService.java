@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 
 import java.util.Optional;
+
+import net.java.EMSbackend.DTO.LoginDTO;
 import net.java.EMSbackend.model.Employee;
+import net.java.EMSbackend.model.LoginMessage;
 import net.java.EMSbackend.repository.EmployeeRepository;
 import net.java.EMSbackend.repository.TodoRepository;
 
@@ -103,5 +106,22 @@ public class EmployeeService {
         }
         reg.setSalary(salary);
         return employeeRepository.save(reg);
+    }
+
+    @Transactional
+    public LoginMessage loginEmployee(LoginDTO loginDTO) {
+        Employee reg = employeeRepository.findByEmail(loginDTO.getEmail());
+
+        if (reg != null) {
+
+            if (loginDTO.getPassword().equals(reg.getPassword())) {
+
+                return new LoginMessage(true, "Success", reg.getEmail(), reg.getUserRole());
+            } else {
+                return new LoginMessage(false, "Not Match", "", "");
+            }
+        } else {
+            return new LoginMessage(false, "Not Exist", "", "");
+        }
     }
 }

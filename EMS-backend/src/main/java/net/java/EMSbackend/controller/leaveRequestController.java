@@ -68,4 +68,9 @@ public class leaveRequestController {
     public Page<LeaveRequest> getPendingLeaveRequests(@PathVariable int pageNumber) {
         return leaveRequestService.getAllPendingLeavesRequestsPage(pageNumber, 5);
     }
+
+    @GetMapping("/getLeaveRequestsOfEmployee/{email}")
+    public Integer countLeaveRequestsOfEmployee(@PathVariable String email) {
+        return leaveRequestService.countLeaveRequestsOfEmployee(email);
+    }
 }
